@@ -30,13 +30,17 @@ export default function TodoItem({todoSingle}) {
 
   const handleTodoCheck = (e) => {
     e.preventDefault();
-    updateTodoStatus(e.target.id,e.target.checked);
-};
+    updateTodoStatus(e.target.id,e.target.checked).then(response=>{
+      if(response.status){
+        window.location.reload();
+      }  
+    });
+  };
 
   return (
     <div>
       <ListItem button onClick={handleClick} Style="background-color:#f1f1f1;">
-        <Checkbox  onClick={handleTodoCheck} id={todoSingle.id} edge="edge" checked={todoSingle.status==='pending'?false:true} tabIndex={-1} disableRipple />
+        <Checkbox  onClick={handleTodoCheck} key = {todoSingle.id} id={todoSingle.id} edge="edge" checked={todoSingle.status==='pending'?false:true} tabIndex={-1} disableRipple />
         <ListItemText primary={todoSingle.title} />
         <span Style="color:grey;">{calculateCompleted(todoSingle.subtasks)}&nbsp;</span>
         {open ? <ExpandLess /> : <ExpandMore />}
