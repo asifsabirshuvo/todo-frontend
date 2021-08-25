@@ -1,4 +1,5 @@
 import React ,{ useState }from "react";
+import Skeleton from "react-loading-skeleton";
 import {getAllTodos} from './../Services/todoService';
 import TodoItem from "../Components/TodoItem";
 import TextField from '@material-ui/core/TextField';
@@ -6,10 +7,13 @@ import Button from '@material-ui/core/Button';
 
 function AllTodo() {
 	const [todoData, setTodoData] = useState([]);
+	const [loader, setLoader] = useState(true);
 
     React.useEffect(() => {
 		getAllTodos().then(response=>{
+            setLoader(true);
             setTodoData(response.data);
+            setLoader(false);
         });
 	}, []);
 
@@ -29,9 +33,24 @@ function AllTodo() {
         
         </div>
         <br/><br/>
-        {todoData.map((item) => {
+        {loader === false ? (<div>        
+            {todoData.map((item) => {
 			return <TodoItem todoSingle = {item}/>;
-	    })}
+	    })}</div>
+        ):(
+            <div>
+					<Skeleton Style="width:100%;" height={50}/>
+					<br></br>
+					<Skeleton Style="width:100%;" height={50}/>
+					<br></br>
+					<Skeleton Style="width:100%;" height={50}/>
+					<br></br>
+					<Skeleton Style="width:100%;" height={50}/>
+					<br></br>
+			</div>
+        )
+        
+    }
    </div>
     );
 }
