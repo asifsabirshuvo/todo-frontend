@@ -30,10 +30,10 @@ const useStyles = makeStyles({
         color: "black"
       },
       "&:hover .MuiInputLabel-outlined": {
-        color: "black"
+        color: "red"
       },
       "& .MuiInputLabel-outlined.Mui-focused": {
-        color: "black"
+        color: "red"
       }
     }
   });
