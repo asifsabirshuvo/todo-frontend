@@ -48,6 +48,23 @@ async function updateTodoStatus(id, status) {
     }
 }
 
+async function createTodo(title) {
+
+    let response;
+    try {
+        response = await axios.post('http://localhost:4000/api/v1/todo', {
+            title: title,
+        });
+        console.log(response);
+        return response;
+    } catch (err) {
+        console.log(err);
+        return {
+            success: false,
+            data: err
+        };
+    }
+}
 
 
-export { getAllTodos, updateTodoStatus };
+export { getAllTodos, updateTodoStatus, createTodo };

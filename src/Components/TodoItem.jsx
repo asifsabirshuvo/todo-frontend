@@ -10,16 +10,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import SubTaskItem from "./SubTaskItem";
 import {updateTodoStatus} from './../Services/todoService';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
-  },
-  nested: {
-    paddingLeft: theme.spacing(4)
-  }
-}));
 
 export default function TodoItem({todoSingle}) {
   const [open, setOpen] = React.useState(true);
@@ -64,8 +54,9 @@ export default function TodoItem({todoSingle}) {
 function calculateCompleted(subtasks){
     let completed = 0;
     subtasks.map(sub=>{
-        if(sub.status ==='completed')
-        completed++;
+        if(sub.status ==='completed'){
+          completed++;
+        }
     })
     return ''+completed+' of '+subtasks.length + ' completed';
 }
