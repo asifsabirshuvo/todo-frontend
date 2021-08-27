@@ -1,42 +1,12 @@
 import React ,{ useState }from "react";
 import Skeleton from "react-loading-skeleton";
-import { makeStyles } from "@material-ui/core/styles";
 import {getAllTodos, createTodo} from './../Services/todoService';
+import {useStyles} from './../Styles/customStyle';
 import TodoItem from "../Components/TodoItem";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const useStyles = makeStyles({
-    root: {
-      "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-        borderColor: "grey"
-      },
-      "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-        borderColor: "red"
-      },
-      "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-        borderColor: "red"
-      },
-      "& .MuiOutlinedInput-input": {
-        color: "black"
-      },
-      "&:hover .MuiOutlinedInput-input": {
-        color: "black"
-      },
-      "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
-        color: "black"
-      },
-      "& .MuiInputLabel-outlined": {
-        color: "black"
-      },
-      "&:hover .MuiInputLabel-outlined": {
-        color: "red"
-      },
-      "& .MuiInputLabel-outlined.Mui-focused": {
-        color: "red"
-      }
-    }
-  });
+
 
 function AllTodo() {
 	const [todoData, setTodoData] = useState([]);

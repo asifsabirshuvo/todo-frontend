@@ -1,5 +1,4 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React,{ useState } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -9,11 +8,22 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import Checkbox from "@material-ui/core/Checkbox";
 import SubTaskItem from "./SubTaskItem";
 import {updateTodoStatus} from './../Services/todoService';
+import {createSubtask} from './../Services/subTaskService';
+import {useStyles} from './../Styles/customStyle';
 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 export default function TodoItem({todoSingle}) {
   const [open, setOpen] = React.useState(true);
-
+  const [subtask, setSubtask] = useState('');
+  const [todoId, setTodoId] = useState(1);
+  const classes = useStyles();
+  
+  React.useEffect(() => {
+		setTodoId (todoSingle.id);
+	}, [])
+  
   const handleClick = () => {
     setOpen(!open);
   };
@@ -27,6 +37,15 @@ export default function TodoItem({todoSingle}) {
     });
   };
 
+  const updateSubTask =  (e) => {
+    setSubtask(e.target.value);
+};
+const generateSubtask = (e)=>{
+    createSubtask(subtask,todoId).then(response=>{    
+        window.location.reload();
+    });
+};
+
   return (
     <div>
       <ListItem button onClick={handleClick} Style="background-color:#f1f1f1;">
@@ -36,7 +55,7 @@ export default function TodoItem({todoSingle}) {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse
-        Style="margin-left:20px;"
+        Style="margin-left:4%;margin-top:1%;"
         in={open}
         timeout="auto"
         unmountOnExit
@@ -46,7 +65,19 @@ export default function TodoItem({todoSingle}) {
 			return <SubTaskItem subtaskSingle = {item}/>
 	    })}
         </List>
+        <div Style="display:inline;margin-left:-1%">
+        <TextField id="title"
+          className={classes.root}
+          onChange={updateSubTask}
+          Style="width:80%;"
+          label="Subtask" variant="outlined" />
+        <Button variant="contained" onClick={generateSubtask} color="default" Style="height:53px;width:17%; margin-left:1%">
+          ADD SUBTASK
+        </Button>
+        <br></br><br></br>
+        </div>
       </Collapse>
+     
     </div>
   );
 }
